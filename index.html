@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll Controlled Video</title>
+    <style>
+        body {
+            height: 500vh;
+
+            margin: 0;
+            background: #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        video {
+            width: 80%;
+            height: auto;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+
+<body>
+    <video id="scrollVideo" src="partdraft.mp4" preload="auto"></video>
+
+    <script>
+        const video = document.getElementById("scrollVideo");
+
+
+        video.addEventListener("loadedmetadata", () => {
+            const duration = video.duration;
+
+            window.addEventListener("scroll", () => {
+
+                const scrollTop = window.scrollY;
+                const maxScroll = document.body.scrollHeight - window.innerHeight;
+                const scrollFraction = scrollTop / maxScroll;
+
+
+                video.currentTime = duration * scrollFraction;
+            });
+        });
+    </script>
+</body>
+
+</html>
